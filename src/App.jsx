@@ -1,38 +1,77 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { removePunction } from './utils/utils'
-import Char from './components/Char'
+import { useEffect, useState } from "react";
+import "./App.css";
+import Char from "./components/Char";
+import { removePunction } from "./utils/utils";
+
+
+const formatedSentence = removePunction(
+  "Lorem ipsum dolor sit, amet consectetur"
+);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [end, setEnd] = useState(false);
 
-  const [sentence, setSentence] = useState([]);
+  const [startTime, setStartTime] = useState(0)
+  const [endTime, setEndTime] = useState(0)
+  console.log("total Time:", endTime - startTime)
+
+  const [sentence, setSentence] = useState(formatedSentence);
   const [pressedKeys, setPressedKeys] = useState([]);
-  console.log(pressedKeys);
-  
 
-  
+  useEffect(() => {
+    
 
 
-  useEffect(() =>{
-    const formatedSentence = removePunction("Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus nam incidunt iste minus voluptate quia distinctio nesciunt, tempore assumenda? Est, consequatur officia exercitationem ducimus maiores optio blanditiis aut ab odio delectus dolores eaque voluptatum illo, nemo voluptate culpa ullam mollitia voluptatem unde numquam iusto. Dolor eligendi perspiciatis mollitia ab pariatur.");
-    setSentence(formatedSentence)
-document.body.addEventListener("keypress", function({key}){
-  setPressedKeys(prev => {
-    return [...prev, key]
-  })
-})
-  }, [])
+    function t(key){
+      
+
+
+      setPressedKeys((prev) => {
+        if(prev.length===0){
+          console.log("time start");
+          
+          setStartTime(Date.now())
+        }
+        if(prev.length===sentence.length-1){
+          setEnd(true)
+          setEndTime(Date.now())
+        }
+
+        return [...prev, key];
+      });
+
+      setCount(count+1);
+
+      
+    }
+    
+    document.body.addEventListener("keypress", function (e) {
+      const { key } = e;
+      t(key)
+
+
+    });
+
+    
+  }, []);
 
   return (
     <>
-      <div className='main-text'>        
-        {sentence.map((char, index)=> <Char key={char+index} data={char} index={index} pressed={pressedKeys} />)}
+      <div className="main-text">
+        {end? <>
+        <p>Time taken: {(endTime-startTime) / 1000 + " Seconds"}</p> 
+        </>: sentence.map((char, index) => (
+          <Char
+            key={char + index}
+            data={char}
+            index={index}
+            pressed={pressedKeys}
+          />
+        ))}
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
