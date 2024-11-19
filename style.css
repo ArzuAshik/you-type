@@ -1,0 +1,11 @@
+#main-content span {
+  font-size: 32px;
+}
+
+.ok {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
