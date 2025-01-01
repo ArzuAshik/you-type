@@ -3,12 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla.js</title>
+    <title>YouType</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <main>
-      <div id="main-content"></div>
+  <body class="min-h-screen bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    <div class="absolute top-0 text-white text-3xl">
+      Speed: <span id="display-speed">0</span>
+    </div>
+    <main class="flex flex-col items-center justify-center min-h-screen">
+      <div id="main-content" class="text-center w-[80%] mx-auto">
+        <h2 class="text-center text-5xl text-white my-5">Loading.....</h2>
+      </div>
     </main>
     <script src="script.js"></script>
   </body>
